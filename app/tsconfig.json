@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "jsx": "react-native",
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./src",
+    "noUnusedLocals": true,
+    "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@api": ["api"],
+      "@actions": ["actions"],
+      "@components": ["components"],
+      "@constants": ["constants"],
+      "@hocs": ["hocs"],
+      "@managers": ["managers"],
+      "@locales": ["locales"],
+      "@reducers": ["reducers"],
+      "@screens": ["screens"],
+      "@static": ["static"],
+      "@stores": ["stores"],
+      "@styles": ["styles"],
+      "@types": ["types"],
+      "@utils": ["utils"]
+    }
+  }
+}
