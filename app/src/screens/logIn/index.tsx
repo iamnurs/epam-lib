@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     color: "#19769f"
   },
   scroll: {
+    flexGrow: 1,
     justifyContent: "center",
     paddingLeft: 30,
     paddingRight: 30,

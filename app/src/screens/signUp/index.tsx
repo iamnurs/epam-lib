@@ -90,8 +90,8 @@ export default class LogIn extends React.Component<IProps> {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#fff",
     flex: 1,
-    backgroundColor: "#fff"
   },
   title: {
     color: "#19769f",
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     color: "#19769f"
   },
   scroll: {
+    flexGrow: 1,
     justifyContent: "center",
     paddingLeft: 30,
     paddingRight: 30,
