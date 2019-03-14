@@ -4,7 +4,7 @@ import { Provider } from 'mobx-react';
 import Router from './router';
 import rootStore from './stores';
 
-configure({ enforceActions: true, computedRequiresReaction: true });
+configure({ enforceActions: "observed", computedRequiresReaction: true });
 const App: SFC = () => {
   return (
     <Provider {...rootStore}>

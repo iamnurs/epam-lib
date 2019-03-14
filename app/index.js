@@ -10,4 +10,4 @@ export default class Main extends Component {
   }
 }
 
-AppRegistry.registerComponent('volta', () => Main);
+AppRegistry.registerComponent('epamLib', () => Main);
