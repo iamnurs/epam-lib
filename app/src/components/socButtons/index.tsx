@@ -7,11 +7,18 @@ import {
   ViewProps,
   ImageStyle
 } from "react-native";
+import { NavigationScreenProp, NavigationState } from "react-navigation";
 
-const SocButton: SFC<ViewProps> = props => {
+import { facebookAuth } from "../../api";
+
+interface IProps extends ViewProps {
+  navigation: NavigationScreenProp<NavigationState>;
+}
+
+const SocButton: SFC<IProps> = props => {
   return (
     <View style={[styles.container, props.style]}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={facebookAuth}>
         <Image
           source={require("../../assets/facebook.png")}
           style={styles.image as ImageStyle}

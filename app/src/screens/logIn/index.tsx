@@ -47,7 +47,7 @@ export default class LogIn extends React.Component<IProps> {
           <Text style={[styles.plainText, styles.right]}>Забыли пароль?</Text>
           <Button title="Вход" onPress={() => null} style={styles.button} />
           <Text style={styles.plainText}>или</Text>
-          <SocButton style={styles.button} />
+          <SocButton style={styles.button} navigation={this.props.navigation}/>
           <View style={[styles.plainText, styles.textContainer]}>
             <Text>Нет аккаунта? </Text>
             <Text

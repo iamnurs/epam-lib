@@ -138,6 +138,8 @@ android {
 }
 
 dependencies {
+    implementation 'com.facebook.android:facebook-android-sdk:4.34.0'
+    implementation project(':react-native-fbsdk')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])

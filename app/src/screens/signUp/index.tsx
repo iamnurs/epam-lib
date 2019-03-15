@@ -72,7 +72,7 @@ export default class LogIn extends React.Component<IProps> {
             style={styles.button}
           />
           <Text style={styles.plainText}>или</Text>
-          <SocButton style={styles.button} />
+          <SocButton style={styles.button} navigation={this.props.navigation}/>
           <View style={[styles.plainText, styles.textContainer]}>
             <Text>Есть аккаунт? </Text>
             <Text
