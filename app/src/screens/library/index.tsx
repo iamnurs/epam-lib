@@ -107,6 +107,7 @@ export default class Library extends React.Component {
 							title={item.title}
 							available={item.available}
 							inFav={item.inFav}
+							onPress={() => this.props.navigation.navigate('AddBook')}
 						/>
 					)}
 				/>

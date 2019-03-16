@@ -104,7 +104,7 @@ export default class Profile extends React.Component {
 						<Text style={location}>Астана, Казахстан</Text>
 						<Button
 							title="Редактировать профиль"
-							onPress={null}
+							onPress={() => this.props.navigation.navigate('EditProfile')}
 							style={buttonStyle}
 						/>
 					</View>
@@ -128,6 +128,7 @@ export default class Profile extends React.Component {
 							title={item.title}
 							available={item.available}
 							inFav={item.inFav}
+							onPress={() => this.props.navigation.navigate('BookInfo')}
 						/>
 					)}
 				/>
@@ -167,9 +168,7 @@ const styles = StyleSheet.create({
 	},
 	segmentControl: {
 		alignItems: 'center',
-		marginTop: 20,
-
-		marginBottom: 5
+		marginTop: 20
 	},
 	gridView: {
 		marginTop: 0,

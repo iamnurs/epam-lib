@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
 	},
 	text: {
 		color: '#fff',
-		fontSize: 16,
+		fontSize: 13,
 		fontWeight: 'bold'
 	}
 });
