@@ -38,7 +38,7 @@ const Card: SFC<IProps> = props => {
 			<Text
 				style={[availableStyle, { color: available ? '#35d5ac' : '#ff3b58' }]}
 			>
-				{available ? 'Available' : 'Not in stock'}
+				{available ? 'Доступно' : 'Недоступно'}
 			</Text>
 			<TouchableOpacity style={favs}>
 				<Icon2
