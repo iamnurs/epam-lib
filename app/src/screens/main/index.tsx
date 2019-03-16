@@ -55,7 +55,6 @@ export default class Main extends React.Component {
             inputStyle={{
               backgroundColor: "white",
               borderRadius: 10,
-			  height: 40
             }}
           />
         </LinearGradient>
