@@ -1,46 +1,102 @@
 import React from "react";
-// import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { NavigationScreenProp, NavigationState } from "react-navigation";
+import { StyleSheet, View, TouchableOpacity, Text, Image } from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import { Header } from "../../components";
+import { Header, Input, Button } from "../../components";
 
-// interface IProps {
-// navigation: NavigationScreenProp<NavigationState>;
-// }
+interface IProps {
+  navigation: NavigationScreenProp<NavigationState>;
+}
 
-export default class EditProfile extends React.Component {
+export default class EditProfile extends React.Component<IProps> {
+  public state = {
+    name: "",
+    email: "",
+    city: "",
+    phone: ""
+  };
+
   public render() {
     return (
-      <React.Fragment>
-        <Header headerText="Библиотека" />
-      </React.Fragment>
+      <View style={styles.container}>
+        <Header
+          headerText="Редактирование"
+          onBack={true}
+          navigation={this.props.navigation}
+        />
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          keyboardDismissMode="interactive"
+          contentContainerStyle={styles.scroll}
+          showsVerticalScrollIndicator={false}
+        >
+          <Image
+            source={require("../../assets/photo.jpg")}
+            style={styles.image}
+          />
+          <Text style={styles.text}>Сменить фото профиля</Text>
+          <Input
+            placeholder="Имя"
+            onChangeText={text => this.setState({ name: text })}
+            text={this.state.name}
+            style={styles.input}
+          />
+          <Input
+            placeholder="Почта"
+            onChangeText={text => this.setState({ email: text })}
+            text={this.state.email}
+            style={styles.input}
+          />
+          <Input
+            placeholder="Город"
+            onChangeText={text => this.setState({ city: text })}
+            text={this.state.city}
+            style={styles.input}
+          />
+          <Input
+            placeholder="Номер"
+            onChangeText={text => this.setState({ phone: text })}
+            text={this.state.phone}
+            style={styles.input}
+          />
+          <Button
+            title="Сохранить"
+            onPress={() => null}
+            style={styles.button}
+          />
+        </KeyboardAwareScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: 150
-  },
-  gradient: {
     flex: 1,
-    width: "100%",
-    paddingTop: 30,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 100,
-      height: 100
-    }
+    backgroundColor: "#fff"
   },
-  rightIcon: {
-    alignSelf: "flex-end",
-    marginRight: 15
+  input: {
+    width: "85%",
+    marginTop: 15
   },
-  header: {
-    color: "white",
-    fontSize: 34,
-    fontWeight: "bold",
-    marginLeft: 15
+  image: {
+    height: 120,
+    width: 120,
+    borderRadius: 5,
+    marginTop: 10
+  },
+  text: {
+    fontSize: 16,
+    color: "#19769f",
+    marginTop: 10
+  },
+  button: {
+    marginTop: 10,
+    width: "85%"
+  },
+  scroll: {
+    flexGrow: 1,
+    alignItems: "center"
   }
 });
