@@ -11,6 +11,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import Icon2 from 'react-native-vector-icons/dist/Feather';
 import { SearchBar } from 'react-native-elements';
+import { FlatGrid } from 'react-native-super-grid';
 import { LEFT_GRADIENT, RIGHT_GRADIENT } from '../../constants';
 import { Card } from '../../components';
 
@@ -63,6 +64,11 @@ export default class Main extends React.Component {
 					</LinearGradient>
 				</View>
 				<Card title="Green mile" available={true} inFav={true} />
+				<FlatGrid
+					itemDimension={130}
+					items={[1, 2, 3, 4, 5, 6]}
+					renderItem={({ item }) => <Text>{item}</Text>}
+				/>
 			</React.Fragment>
 		);
 	}
