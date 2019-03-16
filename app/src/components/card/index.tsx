@@ -6,7 +6,8 @@ import {
 	Image,
 	ViewProps,
 	ImageStyle,
-	TouchableOpacity
+	TouchableOpacity,
+	Platform
 } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import Icon2 from 'react-native-vector-icons/Feather';
@@ -19,7 +20,7 @@ const Card: SFC<IProps> = props => {
 	const { title, available, inFav } = props;
 	const { image, favs, titleStyle, availableStyle } = styles;
 	return (
-		<View style={{ alignSelf: 'center', marginTop: -30 }}>
+		<View style={{ alignSelf: 'center', marginTop: Platform.OS==="ios" ? -30 : -10 }}>
 			<Image
 				source={{
 					uri:

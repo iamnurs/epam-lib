@@ -1,48 +1,72 @@
-import React from 'react';
-// import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import React from "react";
+import { NavigationScreenProp, NavigationState } from "react-navigation";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 
-import {Header} from "../../components"
+import { Header, Input } from "../../components";
 
-// interface IProps {
-// navigation: NavigationScreenProp<NavigationState>;
-// }
+interface IProps {
+  navigation: NavigationScreenProp<NavigationState>;
+}
 
-export default class AddBook extends React.Component {
+export default class AddBook extends React.Component<IProps> {
+  public state = {
+    name: "",
+    author: "",
+    genre: "",
+    description: ""
+  };
 
-	public render() {
-		return (
-			<React.Fragment>
-                <Header headerText="Библиотека"/>
-			</React.Fragment>
-		);
-	}
-
+  public render() {
+    return (
+      <View style={styles.container}>
+        <Header
+          headerText="Добавить книгу"
+          onBack={true}
+		  navigation={this.props.navigation}
+		  download={true}
+        />
+        <Input
+          placeholder="Название"
+          onChangeText={text => this.setState({ name: text })}
+          text={this.state.name}
+          style={styles.input}
+        />
+        <Input
+          placeholder="Автор"
+          onChangeText={text => this.setState({ author: text })}
+          text={this.state.author}
+          style={styles.input}
+        />
+        <Input
+          placeholder="Жанр"
+          onChangeText={text => this.setState({ genre: text })}
+          text={this.state.genre}
+          style={styles.input}
+        />
+        <Input
+          placeholder="Описание"
+          onChangeText={text => this.setState({ description: text })}
+          text={this.state.description}
+          multiline={true}
+          style={[styles.input, styles.multiline]}
+        />
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
-	container: {
-		width: '100%',
-		height: 150
-	},
-	gradient: {
-		flex: 1,
-		width: '100%',
-		paddingTop: 30,
-		shadowColor: 'black',
-		shadowOffset: {
-			width: 100,
-			height: 100
-		}
-	},
-	rightIcon: {
-		alignSelf: 'flex-end',
-		marginRight: 15
-	},
-	header: {
-		color: 'white',
-		fontSize: 34,
-		fontWeight: 'bold',
-		marginLeft: 15
-	}
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center"
+  },
+  input: {
+    width: "90%",
+    marginTop: 20
+  },
+  multiline: {
+    height: 120,
+    textAlignVertical: "top"
+  }
 });
