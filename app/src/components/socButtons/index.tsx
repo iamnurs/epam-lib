@@ -40,6 +40,7 @@ const SocButton: SFC<IProps> = props => {
 
 const authenticate = async navigation => {
 	const token = await facebookAuth();
+	console.warn(token);
 	navigation.navigate('Main');
 };
 
