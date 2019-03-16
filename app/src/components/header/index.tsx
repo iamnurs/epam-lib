@@ -1,8 +1,8 @@
 import React, { SFC } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/dist/Entypo';
-import Icon2 from 'react-native-vector-icons/dist/Feather';
+import Icon from 'react-native-vector-icons/Entypo';
+import Icon2 from 'react-native-vector-icons/Feather';
 import { LEFT_GRADIENT, RIGHT_GRADIENT } from '../../constants';
 
 // import { NavigationScreenProp, NavigationState } from 'react-navigation';
@@ -37,7 +37,7 @@ const Header = props => {
 				<Text style={headerText}>{props.headerText}</Text>
 				{props.download ? (
 					<TouchableOpacity style={rightIcon}>
-						<Icon2 name="download" size={23} color="white" />
+						<Icon2 name="download" size={23} color={'white'} />
 					</TouchableOpacity>
 				) : null}
 				{props.bookmark ? (
