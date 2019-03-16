@@ -1,7 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import Icon2 from 'react-native-vector-icons/Octicons';
-import Icon3 from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/FontAwesome';
 import {
 	createBottomTabNavigator,
