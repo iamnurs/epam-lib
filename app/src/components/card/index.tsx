@@ -10,7 +10,7 @@ import {
 	Platform
 } from 'react-native';
 import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import Icon2 from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
 
 interface IProps extends ViewProps {
 	navigation: NavigationScreenProp<NavigationState>;
@@ -20,7 +20,12 @@ const Card: SFC<IProps> = props => {
 	const { title, available, inFav } = props;
 	const { image, favs, titleStyle, availableStyle } = styles;
 	return (
-		<View style={{ alignSelf: 'center', marginTop: Platform.OS==="ios" ? -30 : -10 }}>
+		<View
+			style={{
+				alignSelf: 'center',
+				marginTop: Platform.OS === 'ios' ? -30 : -10
+			}}
+		>
 			<Image
 				source={{
 					uri:
@@ -37,7 +42,7 @@ const Card: SFC<IProps> = props => {
 			</Text>
 			<TouchableOpacity style={favs}>
 				<Icon2
-					name="bookmark"
+					name={inFav ? 'bookmark' : 'bookmark-o'}
 					size={23}
 					color={!inFav ? '#95989a' : '#35d5ac'}
 				/>
