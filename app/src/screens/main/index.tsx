@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon2 from 'react-native-vector-icons/dist/Feather';
-import { SearchBar } from 'react-native-elements';
+import { SearchBar, Icon } from 'react-native-elements';
 import { FlatGrid } from 'react-native-super-grid';
 import { LEFT_GRADIENT, RIGHT_GRADIENT } from '../../constants';
 import { Card } from '../../components';
@@ -21,12 +21,51 @@ import { Card } from '../../components';
 
 export default class Main extends React.Component {
 	public state = {
-		search: ''
+		search: '',
+		items: [
+			{
+				title: 'Green mile',
+				available: false,
+				inFav: true
+			},
+			{
+				title: 'Green mile',
+				available: true,
+				inFav: true
+			},
+			{
+				title: 'Green mile',
+				available: false,
+				inFav: false
+			},
+			{
+				title: 'Green mile',
+				available: true,
+				inFav: false
+			},
+			{
+				title: 'Green mile',
+				available: true,
+				inFav: true
+			},
+			{
+				title: 'Green mile',
+				available: true,
+				inFav: false
+			}
+		]
 	};
 
 	public render() {
-		const { container, gradient, rightIcon, header } = styles;
-		const { search } = this.state;
+		const {
+			container,
+			gradient,
+			rightIcon,
+			header,
+			gridView,
+			addButton
+		} = styles;
+		const { search, items } = this.state;
 		return (
 			<React.Fragment>
 				<View style={container}>
@@ -63,11 +102,27 @@ export default class Main extends React.Component {
 						/>
 					</LinearGradient>
 				</View>
-				<Card title="Green mile" available={true} inFav={true} />
 				<FlatGrid
-					itemDimension={130}
-					items={[1, 2, 3, 4, 5, 6]}
-					renderItem={({ item }) => <Text>{item}</Text>}
+					itemDimension={170}
+					items={items}
+					style={gridView}
+					spacing={10}
+					renderItem={({ item }) => (
+						<Card
+							title={item.title}
+							available={item.available}
+							inFav={item.inFav}
+						/>
+					)}
+				/>
+				<Icon
+					raised={true}
+					name="add"
+					type="materialicons"
+					color="white"
+					containerStyle={addButton}
+					onPress={() => console.warn('hello')}
+					underlayColor={'#35daaa'}
 				/>
 			</React.Fragment>
 		);
@@ -102,5 +157,16 @@ const styles = StyleSheet.create({
 		fontSize: 34,
 		fontWeight: 'bold',
 		marginLeft: 15
+	},
+	gridView: {
+		marginTop: 0,
+		flex: 1,
+		paddingTop: 35
+	},
+	addButton: {
+		position: 'absolute',
+		bottom: 15,
+		right: 15,
+		backgroundColor: '#35d8a6'
 	}
 });

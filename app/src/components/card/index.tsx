@@ -19,7 +19,7 @@ const Card: SFC<IProps> = props => {
 	const { title, available, inFav } = props;
 	const { image, favs, titleStyle, availableStyle } = styles;
 	return (
-		<View>
+		<View style={{ alignSelf: 'center', marginTop: -30 }}>
 			<Image
 				source={{
 					uri:
