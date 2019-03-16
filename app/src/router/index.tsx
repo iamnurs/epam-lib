@@ -119,7 +119,7 @@ const Router = createSwitchNavigator(
 		Auth: AuthStack
 	},
 	{
-		initialRouteName: 'Auth'
+		initialRouteName: 'App'
 	}
 );
 

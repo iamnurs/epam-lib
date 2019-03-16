@@ -167,7 +167,9 @@ const styles = StyleSheet.create({
 	},
 	segmentControl: {
 		alignItems: 'center',
-		marginTop: 20
+		marginTop: 20,
+
+		marginBottom: 5
 	},
 	gridView: {
 		marginTop: 0,
