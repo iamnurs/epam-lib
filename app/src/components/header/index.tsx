@@ -53,7 +53,8 @@ const Header = props => {
 const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		height: 64
+		height: 80,
+
 	},
 	gradient: {
 		flex: 1,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
 	leftIcon: {
 		position: 'absolute',
 		left: 5,
-		bottom: 11.5,
+		bottom: 15,
 		flexDirection: 'row',
 		alignItems: 'center'
 	},
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
 	},
 	headerText: {
 		marginBottom: 12,
-		fontSize: 17,
+		fontSize: 20,
 		color: 'white',
 		fontWeight: 'bold'
 	}
