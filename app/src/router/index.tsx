@@ -1,12 +1,23 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/Feather';
+import Icon2 from 'react-native-vector-icons/Octicons';
+import Icon3 from 'react-native-vector-icons/Ionicons';
+import Icon4 from 'react-native-vector-icons/FontAwesome';
 import {
 	createBottomTabNavigator,
 	createSwitchNavigator,
 	StackNavigator
 } from 'react-navigation';
 
-import { LogIn, SignUp, Main, Initial, Library, Profile, Notification } from '../screens';
+import {
+	LogIn,
+	SignUp,
+	Main,
+	Initial,
+	Library,
+	Profile,
+	Notification
+} from '../screens';
 
 const TabBar = createBottomTabNavigator(
 	{
@@ -14,7 +25,7 @@ const TabBar = createBottomTabNavigator(
 			screen: Main,
 			navigationOptions: {
 				tabBarIcon: ({ tintColor }) => (
-					<Icon name="book-open" size={24} color={tintColor} />
+					<Icon2 name="book" size={26} color={tintColor} />
 				)
 			}
 		},
@@ -22,7 +33,7 @@ const TabBar = createBottomTabNavigator(
 			screen: Library,
 			navigationOptions: {
 				tabBarIcon: ({ tintColor }) => (
-					<Icon name="book" size={24} color={tintColor} />
+					<Icon4 name="book" size={24} color={tintColor} />
 				)
 			}
 		},
@@ -30,7 +41,7 @@ const TabBar = createBottomTabNavigator(
 			screen: Notification,
 			navigationOptions: {
 				tabBarIcon: ({ tintColor }) => (
-					<Icon name="bell" size={24} color={tintColor} />
+					<Icon4 name="bell-o" size={22} color={tintColor} />
 				)
 			}
 		},
@@ -38,7 +49,7 @@ const TabBar = createBottomTabNavigator(
 			screen: Profile,
 			navigationOptions: {
 				tabBarIcon: ({ tintColor }) => (
-					<Icon name="profile" size={24} color={tintColor} />
+					<Icon name="user" size={24} color={tintColor} />
 				)
 			}
 		}
