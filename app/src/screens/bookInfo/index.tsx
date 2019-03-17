@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import StarRating from "react-native-star-rating";
 import { connect } from "react-redux";
+import { addToFav } from "../../redux/ActionCreaters.js";
 
 window.navigator.userAgent = "react-native";
 import SocketIOClient from "socket.io-client";
@@ -20,9 +21,12 @@ interface IProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
 
+const mapDispatchToProps = dispatch => ({
+  addToFav: creds => dispatch(addToFav(creds))
+});
+
 const mapStateToProps = state => ({
   user: state.user,
-  token: state.token,
   books: state.books
 });
 
@@ -48,6 +52,12 @@ class BookInfo extends React.Component<IProps> {
           onBack={true}
           navigation={this.props.navigation}
           bookmark={true}
+          addToFav={() =>
+            this.props.addToFav({
+              token: this.props.user.token,
+              id: { book: item._id }
+            })
+          }
         />
         <ScrollView style={styles.container}>
           <View style={styles.bookWrapper}>
@@ -197,4 +207,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(BookInfo);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(BookInfo);

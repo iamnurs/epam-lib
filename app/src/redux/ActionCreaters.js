@@ -104,6 +104,84 @@ export const registerUser = creds => dispatch => {
     .catch(error => dispatch(loginError(error.message)));
 };
 
+export const addToFav = creds => dispatch => {
+  return fetch(baseUrl + "users/favorites", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${creds.token}`
+    },
+    body: JSON.stringify(creds.id)
+  })
+    .then(
+      response => {
+        if (response.ok) return response;
+        else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      if (response.success) {
+        response.token = creds.token;
+        dispatch(receiveLogin(response));
+      } else {
+        var error = new Error("Error " + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => dispatch(loginError(error.message)));
+};
+
+export const delFromFav = creds => dispatch => {
+  return fetch(baseUrl + "users/favorites", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${creds.token}`
+    },
+    body: JSON.stringify(creds.id)
+  })
+    .then(
+      response => {
+        if (response.ok) return response;
+        else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      error => {
+        throw error;
+      }
+    )
+    .then(response => response.json())
+    .then(response => {
+      console.log(response);
+      if (response.success) {
+        response.token = creds.token;
+        dispatch(receiveLogin(response));
+      } else {
+        var error = new Error("Error " + response.status);
+        error.response = response;
+        throw error;
+      }
+    })
+    .catch(error => dispatch(loginError(error.message)));
+};
+
 export const requestLogin = creds => {
   return {
     type: ActionTypes.LOGIN_REQUEST,

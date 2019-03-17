@@ -20,7 +20,8 @@ const mapStateToProps = state => ({
 class Profile extends React.Component {
   public state = {
     selected: true,
-    myBooks: []
+    myBooks: [],
+    favBooks: []
   };
 
   constructor(props) {
@@ -37,7 +38,16 @@ class Profile extends React.Component {
     const myBooks = books.books.filter(
       item => item.owner._id === user.user._id
     );
-    this.setState({ myBooks });
+    const favBooks = books.books.filter(item =>
+      user.user.favorites
+        .map(book => {
+          if (book === item._id) {
+            return true;
+          }
+        })
+        .includes(true)
+    );
+    this.setState({ myBooks, favBooks });
   }
 
   public render() {
@@ -52,7 +62,7 @@ class Profile extends React.Component {
       buttonStyle,
       location
     } = styles;
-    const { selected, myBooks } = this.state;
+    const { selected, myBooks, favBooks } = this.state;
     const arrname = this.props.user.user.name.split(" ");
     return (
       <View style={container}>
@@ -88,7 +98,7 @@ class Profile extends React.Component {
         </View>
         <FlatGrid
           itemDimension={160}
-          items={selected ? myBooks : myBooks}
+          items={selected ? myBooks : favBooks}
           style={gridView}
           spacing={10}
           renderItem={({ item }) => (
@@ -96,7 +106,7 @@ class Profile extends React.Component {
               uri={"https:" + item.image}
               title={item.title}
               available={item.owner !== item.tenant}
-              inFav={false}
+              inFav={!selected}
               onPress={() =>
                 this.props.navigation.navigate("BookInfo", { item })
               }

@@ -44,7 +44,7 @@ const Header = props => {
           </TouchableOpacity>
         ) : null}
         {props.bookmark ? (
-          <TouchableOpacity style={rightIcon}>
+          <TouchableOpacity style={rightIcon} onPress={() => props.addToFav()}>
             <Icon2 name="bookmark" size={23} color="white" />
           </TouchableOpacity>
         ) : null}
