@@ -92,7 +92,7 @@ class Notification extends React.Component {
               <Text style={wants}>Хочет взять у Вас книгу</Text>
               <Text style={book}>Зеленая Миля</Text>
               <View style={buttons}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.setModalVisible}>
                   <View
                     style={[
                       button,
@@ -102,7 +102,7 @@ class Notification extends React.Component {
                     <Text style={accept}>Принять</Text>
                   </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={this.setModalVisible}>
                   <View
                     style={[
                       button,
@@ -118,7 +118,11 @@ class Notification extends React.Component {
         </Modal>
         <Header headerText="Уведомления" />
         <FlatList
-          renderItem={() => <NotifyInfo />}
+          renderItem={() => (
+            <TouchableOpacity onPress={this.setModalVisible}>
+              <NotifyInfo />
+            </TouchableOpacity>
+          )}
           data={[1, 2, 3]}
           keyExtractor={(key, index) => index.toString()}
         />
