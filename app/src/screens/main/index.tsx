@@ -1,172 +1,177 @@
-import React from "react";
-import { NavigationScreenProp, NavigationState } from "react-navigation";
+import React from 'react';
+import { NavigationScreenProp, NavigationState } from 'react-navigation';
 import {
-  StyleSheet,
-  View,
-  TouchableOpacity,
-  Text,
-  StatusBar,
-  Platform,
-  ActivityIndicator
-} from "react-native";
-import LinearGradient from "react-native-linear-gradient";
-import Icon2 from "react-native-vector-icons/dist/Feather";
-import { SearchBar, Icon } from "react-native-elements";
-import { FlatGrid } from "react-native-super-grid";
-import { LEFT_GRADIENT, RIGHT_GRADIENT } from "../../constants";
-import { Card } from "../../components";
-import { connect } from "react-redux";
-import { fetchBooks } from "../../redux/ActionCreaters.js";
+	StyleSheet,
+	View,
+	TouchableOpacity,
+	Text,
+	StatusBar,
+	Platform,
+	ActivityIndicator
+} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import Icon2 from 'react-native-vector-icons/dist/Feather';
+import { SearchBar, Icon } from 'react-native-elements';
+import { FlatGrid } from 'react-native-super-grid';
+import { LEFT_GRADIENT, RIGHT_GRADIENT } from '../../constants';
+import { Card } from '../../components';
+import { connect } from 'react-redux';
+import { fetchBooks } from '../../redux/ActionCreaters.js';
 
 interface IProps {
-  navigation: NavigationScreenProp<NavigationState>;
+	navigation: NavigationScreenProp<NavigationState>;
 }
 
 const mapStateToProps = state => ({
-  books: state.books,
-  token: state.token,
-  user: state.user
+	books: state.books,
+	token: state.token,
+	user: state.user
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchBooks: () => dispatch(fetchBooks())
+	fetchBooks: () => dispatch(fetchBooks())
 });
 
 class Main extends React.Component<IProps> {
-  public state = {
-    search: ""
-  };
+	public state = {
+		search: ''
+	};
 
-  public async componentDidMount() {
-    await this.props.fetchBooks();
-  }
+	public async componentDidMount() {
+		await this.props.fetchBooks();
+	}
 
-  public render() {
-    const {
-      container,
-      gradient,
-      rightIcon,
-      header,
-      gridView,
-      addButton
-    } = styles;
-    const { search } = this.state;
-    console.warn(this.props.user.user.books);
-    return (
-      <React.Fragment>
-        <View style={container}>
-          <StatusBar
-            translucent={true}
-            backgroundColor="transparent"
-            barStyle="dark-content"
-          />
-          <LinearGradient
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            colors={[LEFT_GRADIENT, RIGHT_GRADIENT]}
-            style={gradient}
-          >
-            <TouchableOpacity style={rightIcon}>
-              <Icon2 name="filter" size={23} color="white" />
-            </TouchableOpacity>
-            <Text style={header}>Все книги</Text>
-            <SearchBar
-              placeholder="Поиск"
-              onChangeText={this.updateSearch}
-              value={search}
-              lightTheme={true}
-              containerStyle={{
-                backgroundColor: "transparent",
-                borderTopColor: "transparent",
-                borderBottomColor: "transparent",
-                margin: 5
-              }}
-              inputStyle={{
-                backgroundColor: "white",
-                borderRadius: 10
-              }}
-            />
-          </LinearGradient>
-        </View>
-        {this.props.books.isLoading ? (
-          <View
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-          >
-            <ActivityIndicator size="large" />
-          </View>
-        ) : (
-          <FlatGrid
-            itemDimension={160}
-            items={this.props.books.books}
-            style={gridView}
-            spacing={10}
-            renderItem={({ item }) => (
-              <Card
-                title={item.title}
-                available={item.owner === item.tenant}
-                inFav={false}
-              />
-            )}
-          />
-        )}
-        <Icon
-          raised={true}
-          name="add"
-          type="materialicons"
-          color="white"
-          containerStyle={addButton}
-          onPress={() => this.props.navigation.navigate("AddBook")}
-          underlayColor={"#35daaa"}
-        />
-      </React.Fragment>
-    );
-  }
+	public render() {
+		const {
+			container,
+			gradient,
+			rightIcon,
+			header,
+			gridView,
+			addButton
+		} = styles;
+		const { search } = this.state;
+		return (
+			<React.Fragment>
+				<View style={container}>
+					<StatusBar
+						translucent={true}
+						backgroundColor="transparent"
+						barStyle="dark-content"
+					/>
+					<LinearGradient
+						start={{ x: 0, y: 0 }}
+						end={{ x: 1, y: 0 }}
+						colors={[LEFT_GRADIENT, RIGHT_GRADIENT]}
+						style={gradient}
+					>
+						<TouchableOpacity style={rightIcon}>
+							<Icon2 name="filter" size={23} color="white" />
+						</TouchableOpacity>
+						<Text style={header}>Все книги</Text>
+						<SearchBar
+							placeholder="Поиск"
+							onChangeText={this.updateSearch}
+							value={search}
+							lightTheme={true}
+							containerStyle={{
+								backgroundColor: 'transparent',
+								borderTopColor: 'transparent',
+								borderBottomColor: 'transparent',
+								margin: 5
+							}}
+							inputStyle={{
+								backgroundColor: 'white',
+								borderRadius: 10
+							}}
+						/>
+					</LinearGradient>
+				</View>
+				{this.props.books.isLoading ? (
+					<View
+						style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+					>
+						<ActivityIndicator size="large" />
+					</View>
+				) : (
+					<FlatGrid
+						itemDimension={160}
+						items={this.props.books.books}
+						style={gridView}
+						spacing={10}
+						renderItem={({ item }) => (
+							<Card
+								uri={'https:' + item.image}
+								title={item.title}
+								available={item.owner === item.tenant}
+								inFav={false}
+								onPress={() =>
+									this.props.navigation.navigate('BookInfo', {
+										item
+									})
+								}
+							/>
+						)}
+					/>
+				)}
+				<Icon
+					raised={true}
+					name="add"
+					type="materialicons"
+					color="white"
+					containerStyle={addButton}
+					onPress={() => this.props.navigation.navigate('AddBook')}
+					underlayColor={'#35daaa'}
+				/>
+			</React.Fragment>
+		);
+	}
 
-  private updateSearch = search => {
-    this.setState({ search });
-  };
+	private updateSearch = search => {
+		this.setState({ search });
+	};
 }
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    height: Platform.OS === "ios" ? 150 : 165
-  },
-  gradient: {
-    flex: 1,
-    width: "100%",
-    paddingTop: 30,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 100,
-      height: 100
-    }
-  },
-  rightIcon: {
-    alignSelf: "flex-end",
-    marginRight: 15
-  },
-  header: {
-    color: "white",
-    fontSize: 34,
-    fontWeight: "bold",
-    marginLeft: 15
-  },
-  gridView: {
-    marginTop: 0,
-    flex: 1,
-    paddingTop: Platform.OS === "ios" ? 35 : 20,
-    backgroundColor: "#fff"
-  },
-  addButton: {
-    position: "absolute",
-    bottom: 15,
-    right: 15,
-    backgroundColor: "#35d8a6"
-  }
+	container: {
+		width: '100%',
+		height: Platform.OS === 'ios' ? 150 : 165
+	},
+	gradient: {
+		flex: 1,
+		width: '100%',
+		paddingTop: 30,
+		shadowColor: 'black',
+		shadowOffset: {
+			width: 100,
+			height: 100
+		}
+	},
+	rightIcon: {
+		alignSelf: 'flex-end',
+		marginRight: 15
+	},
+	header: {
+		color: 'white',
+		fontSize: 34,
+		fontWeight: 'bold',
+		marginLeft: 15
+	},
+	gridView: {
+		marginTop: 0,
+		flex: 1,
+		paddingTop: Platform.OS === 'ios' ? 35 : 20,
+		backgroundColor: '#fff'
+	},
+	addButton: {
+		position: 'absolute',
+		bottom: 15,
+		right: 15,
+		backgroundColor: '#35d8a6'
+	}
 });
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+	mapStateToProps,
+	mapDispatchToProps
 )(Main);

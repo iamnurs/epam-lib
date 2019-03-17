@@ -9,83 +9,34 @@ import {
 } from 'react-native';
 import { FlatGrid } from 'react-native-super-grid';
 import { Header, SegmentControl, Card } from '../../components';
-
+import { connect } from 'react-redux';
 // interface IProps {
 // navigation: NavigationScreenProp<NavigationState>;
 // }
+const mapStateToProps = state => ({
+	books: state.books,
+	user: state.user
+});
 
-export default class Library extends React.Component {
+class Library extends React.Component {
 	public state = {
 		selected: true,
-		items1: [
-			{
-				title: 'Green mile',
-				available: false,
-				inFav: true
-			},
-			{
-				title: 'Green mile',
-				available: true,
-				inFav: true
-			},
-			{
-				title: 'Green mile',
-				available: false,
-				inFav: false
-			},
-			{
-				title: 'Green mile',
-				available: true,
-				inFav: false
-			},
-			{
-				title: 'Green mile',
-				available: true,
-				inFav: true
-			},
-			{
-				title: 'Green mile',
-				available: true,
-				inFav: false
-			}
-		],
-		items2: [
-			{
-				title: 'IDI NAHUI',
-				available: false,
-				inFav: true
-			},
-			{
-				title: 'IDI NAHUI',
-				available: true,
-				inFav: true
-			},
-			{
-				title: 'IDI NAHUI',
-				available: false,
-				inFav: false
-			},
-			{
-				title: 'IDI NAHUI',
-				available: true,
-				inFav: false
-			},
-			{
-				title: 'IDI NAHUI',
-				available: true,
-				inFav: true
-			},
-			{
-				title: 'IDI NAHUI',
-				available: true,
-				inFav: false
-			}
-		]
+		given: [],
+		taken: []
 	};
+
+	public componentDidMount() {
+		const { user, books } = this.props;
+		const taken = books.books.filter(item => item.tenant._id === user.user._id);
+		const given = user.user.books.filter(
+			item => item.owner._id !== user.user._id
+		);
+		this.setState({ taken, given });
+	}
 
 	public render() {
 		const { segmentControl, container, gridView } = styles;
-		const { selected, items1, items2 } = this.state;
+		const { selected, taken, given } = this.state;
 		return (
 			<View style={container}>
 				<Header headerText="Библиотека" />
@@ -99,7 +50,7 @@ export default class Library extends React.Component {
 				</View>
 				<FlatGrid
 					itemDimension={160}
-					items={selected ? items1 : items2}
+					items={selected ? taken : given}
 					style={gridView}
 					spacing={10}
 					renderItem={({ item }) => (
@@ -157,3 +108,8 @@ const styles = StyleSheet.create({
 		paddingTop: Platform.OS === 'ios' ? 35 : 20
 	}
 });
+
+export default connect(
+	mapStateToProps,
+	null
+)(Library);
