@@ -198,8 +198,11 @@ class Main extends React.Component<IProps> {
 	};
 	private updateBooks = async () => {
 		await this.props.fetchBooks();
+		const books = this.props.books.books.filter(
+			item => item.owner._id !== this.props.user.user._id
+		);
 		this.setState({
-			books: this.props.books.books
+			books
 		});
 	};
 }
