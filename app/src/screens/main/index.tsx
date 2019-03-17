@@ -41,11 +41,8 @@ class Main extends React.Component<IProps> {
     genre: ""
   };
 
-  public async componentDidMount() {
-    await this.props.fetchBooks();
-    this.setState({
-      books: this.props.books.books
-    });
+  public componentDidMount() {
+    this.updateBooks();
   }
 
   public render() {
@@ -166,7 +163,11 @@ class Main extends React.Component<IProps> {
           type="materialicons"
           color="white"
           containerStyle={addButton}
-          onPress={() => this.props.navigation.navigate("AddBook")}
+          onPress={() =>
+            this.props.navigation.navigate("AddBook", {
+              update: this.updateBooks
+            })
+          }
           underlayColor={"#35daaa"}
         />
       </React.Fragment>
@@ -190,6 +191,13 @@ class Main extends React.Component<IProps> {
       book.genre.toLowerCase().includes(text.toLowerCase())
     );
     this.setState({ books: newBooks, genre: text });
+  };
+
+  private updateBooks = async () => {
+    await this.props.fetchBooks();
+    this.setState({
+      books: this.props.books.books
+    });
   };
 }
 
