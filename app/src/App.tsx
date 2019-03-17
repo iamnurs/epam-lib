@@ -1,13 +1,13 @@
 import React, { SFC } from 'react';
-import { configure } from 'mobx';
-import { Provider } from 'mobx-react';
 import Router from './router';
-import rootStore from './stores';
+import {Provider} from "react-redux"
+import {ConfigureStore} from './redux/configureStore.js';
 
-configure({ enforceActions: "observed", computedRequiresReaction: true });
+const state = ConfigureStore();
+
 const App: SFC = () => {
   return (
-    <Provider {...rootStore}>
+    <Provider store={state}>
       <Router />
     </Provider>
   );

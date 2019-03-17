@@ -1,14 +1,24 @@
 import React from "react";
 import { NavigationScreenProp, NavigationState } from "react-navigation";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { connect } from "react-redux";
 
-import { Header, Input } from "../../components";
+import { Header, Input, Button } from "../../components";
+import { postBook } from "../../redux/ActionCreaters.js";
 
 interface IProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
 
-export default class AddBook extends React.Component<IProps> {
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+  postBook: cred => dispatch(postBook(cred))
+});
+
+class AddBook extends React.Component<IProps> {
   public state = {
     name: "",
     author: "",
@@ -22,8 +32,8 @@ export default class AddBook extends React.Component<IProps> {
         <Header
           headerText="Добавить книгу"
           onBack={true}
-		  navigation={this.props.navigation}
-		  download={true}
+          navigation={this.props.navigation}
+          download={true}
         />
         <Input
           placeholder="Название"
@@ -50,6 +60,22 @@ export default class AddBook extends React.Component<IProps> {
           multiline={true}
           style={[styles.input, styles.multiline]}
         />
+        <Button
+          title="Добавить"
+          style={{ marginTop: 10 }}
+          onPress={() =>
+            this.props
+              .postBook({
+                newBook: {
+                  author: this.state.author,
+                  title: this.state.name,
+                  genre: this.state.genre
+                },
+                token: this.props.user.token
+              })
+              .then(() => this.props.navigation.goBack())
+          }
+        />
       </View>
     );
   }
@@ -70,3 +96,8 @@ const styles = StyleSheet.create({
     textAlignVertical: "top"
   }
 });
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AddBook);
