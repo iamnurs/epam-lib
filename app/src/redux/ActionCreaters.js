@@ -8,6 +8,7 @@ export const facebookAuth = () => async dispatch => {
   dispatch(requestLogin({}));
   const res = await LoginManager.logInWithReadPermissions(["public_profile"]);
   if (res.isCancelled) {
+    dispatch(loginError({}));
     return "Login cancelled";
   }
   const tokenFromFb = await AccessToken.getCurrentAccessToken();
@@ -172,7 +173,7 @@ export const postBook = obj => dispatch => {
       "Content-Type": "application/json",
       Authorization: `Bearer ${obj.token}`
     },
-    body: JSON.stringify(newBook),
+    body: JSON.stringify(newBook)
   })
     .then(
       response => {
