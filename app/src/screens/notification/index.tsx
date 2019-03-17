@@ -10,15 +10,58 @@ import {
 	Image
 } from 'react-native';
 
+import { connect } from 'react-redux';
 import { NotifyInfo, Header, Button } from '../../components';
-
 // interface IProps {
 // navigation: NavigationScreenProp<NavigationState>;
 // }
 
-export default class Notification extends React.Component {
+const mapStateToProps = state => ({
+	user: state.user,
+	books: state.books
+});
+
+class Notification extends React.Component {
 	public state = {
-		modalVisible: false
+		modalVisible: false,
+		data: []
+	};
+
+	public componentDidMount = async () => {
+		const requests = this.props.user.user.requests;
+		const url = 'https://epam-lib.herokuapp.com/api/users';
+		const response = await fetch(url);
+		const users = await response.json();
+		const data = await requests.forEach(request =>
+			users.forEach(user => {
+				if (request.user === user._id) {
+					return user.books.forEach(book => {
+						if (book._id === request.book) {
+							return {
+								name: user.name,
+								location: user.location,
+								title: book.title,
+								uri: user.image
+							};
+						}
+					});
+				}
+			})
+		);
+
+		await requests.forEach(request => {
+			users.forEach(user => {
+				if (request.user === user._id) {
+					user.books.forEach(book => {
+						if (book._id === request.book) {
+							console.warn(user.name, user.location, book.title, user.image);
+						}
+					});
+				}
+			});
+		});
+
+		console.warn(requests);
 	};
 
 	public render() {
@@ -156,3 +199,4 @@ const styles = StyleSheet.create({
 		fontWeight: 'bold'
 	}
 });
+export default connect(mapStateToProps)(Notification);
