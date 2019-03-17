@@ -36,7 +36,7 @@ const Card: SFC<IProps> = props => {
 			>
 				{available ? 'Доступно' : 'Недоступно'}
 			</Text>
-			<TouchableOpacity style={favs}>
+			<TouchableOpacity style={favs} onPress={props.onFavPress}>
 				<Icon2
 					name={inFav ? 'bookmark' : 'bookmark-o'}
 					size={23}
