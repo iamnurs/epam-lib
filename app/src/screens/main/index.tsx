@@ -183,7 +183,7 @@ class Main extends React.Component<IProps> {
                 onPress={() => {
                   this.props.navigation.navigate("BookInfo", { item });
                 }}
-                onFavPress={
+                onFavPress={() =>
                   this.props.user.user.favorites.filter(
                     book => item._id === book
                   ).length > 0
