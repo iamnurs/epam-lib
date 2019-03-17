@@ -14,7 +14,7 @@ class NotifyIcon extends React.Component {
     return (
       <View style={styles.container}>
         <Icon4 name="bell-o" size={22} color={this.props.tintColor} />
-        {this.props.user.user.requests.length && (
+        {this.props.user.user.requests.length > 0 && (
           <Text style={styles.number}>
             {this.props.user.user.requests.length}
           </Text>
