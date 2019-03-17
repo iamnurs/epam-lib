@@ -1,51 +1,158 @@
-import React from "react";
+import React from 'react';
 // import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { StyleSheet, View, FlatList } from "react-native";
+import {
+	StyleSheet,
+	View,
+	FlatList,
+	Modal,
+	Text,
+	TouchableOpacity,
+	Image
+} from 'react-native';
 
-import { NotifyInfo, Header } from "../../components";
+import { NotifyInfo, Header, Button } from '../../components';
 
 // interface IProps {
 // navigation: NavigationScreenProp<NavigationState>;
 // }
 
 export default class Notification extends React.Component {
-  public render() {
-    return (
-      <View style={styles.container}>
-        <Header headerText="Уведомления" />
-        <FlatList
-          renderItem={() => <NotifyInfo />}
-          data={[1, 2, 3, 4, 5, 6]}
-          keyExtractor={(key, index) => index.toString()}
-        />
-      </View>
-    );
-  }
+	public state = {
+		modalVisible: false
+	};
+
+	public render() {
+		const {
+			container,
+			modalWrapper,
+			photo,
+			name,
+			location,
+			wants,
+			book,
+			buttons,
+			button,
+			accept,
+			decline
+		} = styles;
+		return (
+			<View style={container}>
+				<Modal
+					animationType="fade"
+					transparent={true}
+					visible={this.state.modalVisible}
+					presentationStyle="overFullScreen"
+				>
+					<View style={{ flex: 1, backgroundColor: 'rgba(80,92,98,0.8)' }}>
+						<View style={modalWrapper}>
+							<Image source={require('../../assets/photo.jpg')} style={photo} />
+							<Text style={name}>Нурсултанио</Text>
+							<Text style={location}>Астана, Казахстан</Text>
+							<Text style={wants}>Хочет взять у Вас книгу</Text>
+							<Text style={book}>Зеленая Миля</Text>
+							<View style={buttons}>
+								<TouchableOpacity>
+									<View
+										style={[
+											button,
+											{ borderLeftWidth: 0, borderRightWidth: 0.5 }
+										]}
+									>
+										<Text style={accept}>Принять</Text>
+									</View>
+								</TouchableOpacity>
+								<TouchableOpacity>
+									<View
+										style={[
+											button,
+											{ borderRightWidth: 0, borderLeftWidth: 0.5 }
+										]}
+									>
+										<Text style={decline}>Отказать</Text>
+									</View>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
+				</Modal>
+				<Header headerText="Уведомления" />
+				<FlatList
+					renderItem={() => <NotifyInfo />}
+					data={[1, 2, 3, 4, 5, 6]}
+					keyExtractor={(key, index) => index.toString()}
+				/>
+				<Button title="button" onPress={this.setModalVisible} />
+			</View>
+		);
+	}
+	private setModalVisible = () => {
+		this.setState(prevState => {
+			return { modalVisible: !prevState.modalVisible };
+		});
+	};
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  },
-  gradient: {
-    flex: 1,
-    width: "100%",
-    paddingTop: 30,
-    shadowColor: "black",
-    shadowOffset: {
-      width: 100,
-      height: 100
-    }
-  },
-  rightIcon: {
-    alignSelf: "flex-end",
-    marginRight: 15
-  },
-  header: {
-    color: "white",
-    fontSize: 34,
-    fontWeight: "bold",
-    marginLeft: 15
-  }
+	container: {
+		flex: 2,
+		backgroundColor: '#fff'
+	},
+	modalWrapper: {
+		height: 222,
+		width: 274,
+		borderRadius: 16,
+		alignItems: 'center',
+		alignSelf: 'center',
+		marginTop: '50%',
+		backgroundColor: 'white'
+	},
+	photo: {
+		height: 120,
+		width: 120,
+		borderRadius: 60,
+		marginTop: -60
+	},
+	name: {
+		fontSize: 22,
+		fontWeight: 'bold',
+		marginTop: 5
+	},
+	location: {
+		fontSize: 13,
+		color: 'rgb(149,152,154)'
+	},
+	wants: {
+		fontSize: 15,
+		color: 'rgb(149,152,154)',
+		marginTop: 8
+	},
+	book: {
+		fontSize: 15,
+		fontWeight: 'bold'
+	},
+	buttons: {
+		flexDirection: 'row',
+		height: '100%',
+		marginTop: 10
+	},
+	button: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderWidth: 1,
+		height: 100,
+		width: 137,
+		borderBottomWidth: 0,
+		borderColor: 'rgba(80,92,98,0.13)'
+	},
+	accept: {
+		color: 'rgb(53, 213, 172)',
+		fontSize: 13,
+		fontWeight: 'bold'
+	},
+	decline: {
+		color: 'rgb(255,65,65)',
+		fontSize: 13,
+		fontWeight: 'bold'
+	}
 });
