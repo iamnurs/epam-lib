@@ -7,3 +7,5 @@ export const BOOKS_FAILED = 'BOOKS_FAILED';
 export const ADD_BOOKS = 'ADD_BOOKS';
 
 export const POST_BOOK = 'POST_BOOK';
+
+export const NOTIFY = 'NOTIFY';

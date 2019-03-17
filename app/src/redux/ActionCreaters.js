@@ -197,6 +197,14 @@ export const receiveLogin = response => {
   };
 };
 
+export const receiveNotify = response => {
+  const request = {user: response.from, book: response.book}
+  return {
+    type: ActionTypes.NOTIFY,
+    payload: request
+  };
+};
+
 export const loginError = message => {
   return {
     type: ActionTypes.LOGIN_FAILURE,

@@ -38,6 +38,15 @@ export const User = (
         ...state,
         user: new_user
       };
+      case ActionTypes.NOTIFY:
+      new_user = {
+        ...state.user,
+        requests: [state.user.requests.concat(action.payload)]
+      };
+      return {
+        ...state,
+        user: new_user
+      };
     default:
       return state;
   }
