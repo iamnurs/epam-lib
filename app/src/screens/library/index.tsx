@@ -10,6 +10,7 @@ import {
 import { FlatGrid } from 'react-native-super-grid';
 import { Header, SegmentControl, Card } from '../../components';
 import { connect } from 'react-redux';
+import { isObservableMap } from 'mobx';
 // interface IProps {
 // navigation: NavigationScreenProp<NavigationState>;
 // }
@@ -28,9 +29,8 @@ class Library extends React.Component {
 	public componentDidMount() {
 		const { user, books } = this.props;
 		const taken = books.books.filter(item => item.tenant._id === user.user._id);
-		const given = user.user.books.filter(
-			item => item.owner._id !== user.user._id
-		);
+		const given = user.user.books.filter(item => item !== user.user._id);
+		console.warn(user.user);
 		this.setState({ taken, given });
 	}
 
@@ -55,10 +55,13 @@ class Library extends React.Component {
 					spacing={10}
 					renderItem={({ item }) => (
 						<Card
+							uri={'https:' + item.image}
 							title={item.title}
-							available={item.available}
-							inFav={item.inFav}
-							onPress={() => this.props.navigation.navigate('AddBook')}
+							available={item.owner !== item.tenant}
+							inFav={false}
+							onPress={() =>
+								this.props.navigation.navigate('BookInfo', { item })
+							}
 						/>
 					)}
 				/>
