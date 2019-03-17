@@ -112,6 +112,7 @@ export default class Main extends React.Component<IProps> {
               title={item.title}
               available={item.available}
               inFav={item.inFav}
+              onPress={() => this.props.navigation.navigate("BookInfo")}
             />
           )}
         />

@@ -1,6 +1,6 @@
 import React from "react";
 // import { NavigationScreenProp, NavigationState } from 'react-navigation';
-import { StyleSheet} from "react-native";
+import { StyleSheet, View, FlatList } from "react-native";
 
 import { NotifyInfo, Header } from "../../components";
 
@@ -9,22 +9,24 @@ import { NotifyInfo, Header } from "../../components";
 // }
 
 export default class Notification extends React.Component {
-
   public render() {
     return (
-      <React.Fragment>
-          <Header headerText="Уведомления"/>
-        <NotifyInfo />
-      </React.Fragment>
+      <View style={styles.container}>
+        <Header headerText="Уведомления" />
+        <FlatList
+          renderItem={() => <NotifyInfo />}
+          data={[1, 2, 3, 4, 5, 6]}
+          keyExtractor={(key, index) => index.toString()}
+        />
+      </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
-    height: 150
+    flex: 1,
+    backgroundColor: "#fff"
   },
   gradient: {
     flex: 1,
