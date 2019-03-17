@@ -1,3 +1,3 @@
-import { fetchAllStations } from "./stationsApi";
+import facebookAuth from "./FacebookAuth";
 
-export { fetchAllStations };
+export { facebookAuth };

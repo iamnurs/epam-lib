@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">epamLib</string>
+    <string name="facebook_app_id">267995984121971</string> <string name="fb_login_protocol_scheme">fb267995984121971</string>
 </resources>

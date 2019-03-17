@@ -8,10 +8,17 @@ interface IProps extends TextInputProps {
   onChangeText: (text: string) => void;
   text: string;
   secure?: boolean;
+  multiline?: boolean;
 }
 
 const Input: SFC<IProps> = props => {
-  const { placeholder, onChangeText, text, secure = false } = props;
+  const {
+    placeholder,
+    onChangeText,
+    text,
+    secure = false,
+    multiline = false
+  } = props;
 
   return (
     <TextInput
@@ -20,6 +27,7 @@ const Input: SFC<IProps> = props => {
       onChangeText={onChangeText}
       value={text}
       secureTextEntry={secure}
+      multiline={multiline}
     />
   );
 };

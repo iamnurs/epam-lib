@@ -1,12 +1,27 @@
 import React from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
+import Icon from "react-native-vector-icons/Feather";
+import Icon2 from "react-native-vector-icons/Octicons";
+import Icon4 from "react-native-vector-icons/FontAwesome";
 import {
   createBottomTabNavigator,
   createSwitchNavigator,
   StackNavigator
 } from "react-navigation";
 
-import { LogIn, SignUp, Main, Initial } from "../screens";
+import { NotifyIcon } from "../components";
+
+import {
+  LogIn,
+  SignUp,
+  Main,
+  Initial,
+  Library,
+  Profile,
+  Notification,
+  EditProfile,
+  AddBook,
+  BookInfo
+} from "../screens";
 
 const TabBar = createBottomTabNavigator(
   {
@@ -14,7 +29,29 @@ const TabBar = createBottomTabNavigator(
       screen: Main,
       navigationOptions: {
         tabBarIcon: ({ tintColor }) => (
-          <Icon name="map" size={24} color={tintColor} />
+          <Icon2 name="book" size={26} color={tintColor} />
+        )
+      }
+    },
+    Library: {
+      screen: Library,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon4 name="book" size={24} color={tintColor} />
+        )
+      }
+    },
+    Notification: {
+      screen: Notification,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => <NotifyIcon tintColor={tintColor} />
+      }
+    },
+    Profile: {
+      screen: Profile,
+      navigationOptions: {
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="user" size={24} color={tintColor} />
         )
       }
     }
@@ -25,6 +62,28 @@ const TabBar = createBottomTabNavigator(
         height: 50
       },
       showLabel: false
+    }
+  }
+);
+
+const MainStack = StackNavigator(
+  {
+    Tab: {
+      screen: TabBar
+    },
+    AddBook: {
+      screen: AddBook
+    },
+    BookInfo: {
+      screen: BookInfo
+    },
+    EditProfile: {
+      screen: EditProfile
+    }
+  },
+  {
+    navigationOptions: {
+      header: null
     }
   }
 );
@@ -56,7 +115,7 @@ const AuthStack = StackNavigator(
 
 const Router = createSwitchNavigator(
   {
-    App: TabBar,
+    App: MainStack,
     Auth: AuthStack
   },
   {
