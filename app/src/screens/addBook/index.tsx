@@ -73,6 +73,7 @@ class AddBook extends React.Component<IProps> {
                 },
                 token: this.props.user.token
               })
+              .then(() => this.props.navigation.getParam("update")())
               .then(() => this.props.navigation.goBack())
           }
         />

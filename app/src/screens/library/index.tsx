@@ -28,9 +28,14 @@ class Library extends React.Component {
 
 	public componentDidMount() {
 		const { user, books } = this.props;
-		const taken = books.books.filter(item => item.tenant._id === user.user._id);
-		const given = user.user.books.filter(item => item !== user.user._id);
-		console.warn(user.user);
+		const taken = books.books.filter(
+			item =>
+				item.tenant._id === user.user._id && item.owner._id !== user.user._id
+		);
+		const given = books.books.filter(
+			item =>
+				item.owner._id === user.user._id && item.tenant._id !== user.user._id
+		);
 		this.setState({ taken, given });
 	}
 
