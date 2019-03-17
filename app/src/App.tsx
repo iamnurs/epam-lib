@@ -1,7 +1,7 @@
-import React, { SFC } from 'react';
-import Router from './router';
-import {Provider} from "react-redux"
-import {ConfigureStore} from './redux/configureStore.js';
+import React, { SFC } from "react";
+import Router from "./router";
+import { Provider } from "react-redux";
+import { ConfigureStore } from "./redux/configureStore.js";
 
 const state = ConfigureStore();
 
