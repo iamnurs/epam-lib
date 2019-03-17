@@ -8,6 +8,8 @@ import {
   StackNavigator
 } from "react-navigation";
 
+import { NotifyIcon } from "../components";
+
 import {
   LogIn,
   SignUp,
@@ -42,9 +44,7 @@ const TabBar = createBottomTabNavigator(
     Notification: {
       screen: Notification,
       navigationOptions: {
-        tabBarIcon: ({ tintColor }) => (
-          <Icon4 name="bell-o" size={22} color={tintColor} />
-        )
+        tabBarIcon: ({ tintColor }) => <NotifyIcon tintColor={tintColor} />
       }
     },
     Profile: {

@@ -5,7 +5,8 @@ import App from "./src/App";
 YellowBox.ignoreWarnings([
   "Warning: isMounted(...) is deprecated",
   "Module RCTImageLoader",
-  "Warning: Cannot update during an"
+  "Warning: Cannot update during an",
+  "Unrecognized WebSocket connection"
 ]);
 
 export default class Main extends Component {

@@ -18,6 +18,9 @@ import { Card } from "../../components";
 import { connect } from "react-redux";
 import { fetchBooks } from "../../redux/ActionCreaters.js";
 
+window.navigator.userAgent = "react-native";
+import SocketIOClient from "socket.io-client";
+
 interface IProps {
   navigation: NavigationScreenProp<NavigationState>;
 }
@@ -40,6 +43,17 @@ class Main extends React.Component<IProps> {
     author: "",
     genre: ""
   };
+
+  constructor(props) {
+    super(props);
+    this.socket = SocketIOClient("https://epam-lib.herokuapp.com", {
+      jsonp: false
+    });
+    this.socket.on(this.props.user.user._id, data => {
+      console.warn("Data recieved from server", data);
+    });
+  }
+
   public componentDidMount() {
     this.updateBooks();
   }
@@ -177,166 +191,166 @@ class Main extends React.Component<IProps> {
     );
   }
 
-	public render() {
-		const {
-			container,
-			gradient,
-			rightIcon,
-			header,
-			gridView,
-			addButton
-		} = styles;
-		return (
-			<React.Fragment>
-				<View style={this.state.filter ? styles.increasedContainer : container}>
-					<StatusBar
-						translucent={true}
-						backgroundColor="transparent"
-						barStyle="dark-content"
-					/>
-					<LinearGradient
-						start={{ x: 0, y: 0 }}
-						end={{ x: 1, y: 0 }}
-						colors={[LEFT_GRADIENT, RIGHT_GRADIENT]}
-						style={gradient}
-					>
-						<TouchableOpacity
-							style={rightIcon}
-							onPress={() =>
-								this.setState(prevState => ({ filter: !prevState.filter }))
-							}
-						>
-							<Icon2 name="filter" size={23} color="white" />
-						</TouchableOpacity>
-						{!this.state.filter && <Text style={header}>Все книги</Text>}
-						{this.state.filter && (
-							<SearchBar
-								placeholder="Название"
-								onChangeText={this.searchByName}
-								lightTheme={true}
-								value={this.state.name}
-								containerStyle={{
-									backgroundColor: 'transparent',
-									borderTopColor: 'transparent',
-									borderBottomColor: 'transparent',
-									margin: 5
-								}}
-								inputStyle={{
-									backgroundColor: 'white',
-									borderRadius: 10
-								}}
-							/>
-						)}
-						{this.state.filter && (
-							<SearchBar
-								placeholder="Жанр"
-								onChangeText={this.searchByGenre}
-								lightTheme={true}
-								value={this.state.genre}
-								containerStyle={{
-									backgroundColor: 'transparent',
-									borderTopColor: 'transparent',
-									borderBottomColor: 'transparent',
-									margin: 5,
-									marginTop: -10
-								}}
-								inputStyle={{
-									backgroundColor: 'white',
-									borderRadius: 10
-								}}
-							/>
-						)}
-						{this.state.filter && (
-							<SearchBar
-								placeholder="Автор"
-								onChangeText={this.searchByAuthor}
-								lightTheme={true}
-								value={this.state.author}
-								containerStyle={{
-									backgroundColor: 'transparent',
-									borderTopColor: 'transparent',
-									borderBottomColor: 'transparent',
-									margin: 5,
-									marginTop: -10
-								}}
-								inputStyle={{
-									backgroundColor: 'white',
-									borderRadius: 10
-								}}
-							/>
-						)}
-					</LinearGradient>
-				</View>
-				{this.props.books.isLoading ? (
-					<View
-						style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-					>
-						<ActivityIndicator size="large" />
-					</View>
-				) : (
-					<FlatGrid
-						itemDimension={160}
-						items={this.state.books}
-						style={gridView}
-						spacing={10}
-						onScroll={() => this.setState({ filter: false })}
-						renderItem={({ item }) => (
-							<Card
-								uri={'https:' + item.image}
-								title={item.title}
-								available={item.owner !== item.tenant}
-								inFav={false}
-								onPress={() =>
-									this.props.navigation.navigate('BookInfo', { item })
-								}
-							/>
-						)}
-					/>
-				)}
-				<Icon
-					raised={true}
-					name="add"
-					type="materialicons"
-					color="white"
-					containerStyle={addButton}
-					onPress={() =>
-						this.props.navigation.navigate('AddBook', {
-							update: this.updateBooks
-						})
-					}
-					underlayColor={'#35daaa'}
-				/>
-			</React.Fragment>
-		);
-	}
+  public render() {
+    const {
+      container,
+      gradient,
+      rightIcon,
+      header,
+      gridView,
+      addButton
+    } = styles;
+    return (
+      <React.Fragment>
+        <View style={this.state.filter ? styles.increasedContainer : container}>
+          <StatusBar
+            translucent={true}
+            backgroundColor="transparent"
+            barStyle="dark-content"
+          />
+          <LinearGradient
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 0 }}
+            colors={[LEFT_GRADIENT, RIGHT_GRADIENT]}
+            style={gradient}
+          >
+            <TouchableOpacity
+              style={rightIcon}
+              onPress={() =>
+                this.setState(prevState => ({ filter: !prevState.filter }))
+              }
+            >
+              <Icon2 name="filter" size={23} color="white" />
+            </TouchableOpacity>
+            {!this.state.filter && <Text style={header}>Все книги</Text>}
+            {this.state.filter && (
+              <SearchBar
+                placeholder="Название"
+                onChangeText={this.searchByName}
+                lightTheme={true}
+                value={this.state.name}
+                containerStyle={{
+                  backgroundColor: "transparent",
+                  borderTopColor: "transparent",
+                  borderBottomColor: "transparent",
+                  margin: 5
+                }}
+                inputStyle={{
+                  backgroundColor: "white",
+                  borderRadius: 10
+                }}
+              />
+            )}
+            {this.state.filter && (
+              <SearchBar
+                placeholder="Жанр"
+                onChangeText={this.searchByGenre}
+                lightTheme={true}
+                value={this.state.genre}
+                containerStyle={{
+                  backgroundColor: "transparent",
+                  borderTopColor: "transparent",
+                  borderBottomColor: "transparent",
+                  margin: 5,
+                  marginTop: -10
+                }}
+                inputStyle={{
+                  backgroundColor: "white",
+                  borderRadius: 10
+                }}
+              />
+            )}
+            {this.state.filter && (
+              <SearchBar
+                placeholder="Автор"
+                onChangeText={this.searchByAuthor}
+                lightTheme={true}
+                value={this.state.author}
+                containerStyle={{
+                  backgroundColor: "transparent",
+                  borderTopColor: "transparent",
+                  borderBottomColor: "transparent",
+                  margin: 5,
+                  marginTop: -10
+                }}
+                inputStyle={{
+                  backgroundColor: "white",
+                  borderRadius: 10
+                }}
+              />
+            )}
+          </LinearGradient>
+        </View>
+        {this.props.books.isLoading ? (
+          <View
+            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          >
+            <ActivityIndicator size="large" />
+          </View>
+        ) : (
+          <FlatGrid
+            itemDimension={160}
+            items={this.state.books}
+            style={gridView}
+            spacing={10}
+            onScroll={() => this.setState({ filter: false })}
+            renderItem={({ item }) => (
+              <Card
+                uri={"https:" + item.image}
+                title={item.title}
+                available={item.owner !== item.tenant}
+                inFav={false}
+                onPress={() =>
+                  this.props.navigation.navigate("BookInfo", { item })
+                }
+              />
+            )}
+          />
+        )}
+        <Icon
+          raised={true}
+          name="add"
+          type="materialicons"
+          color="white"
+          containerStyle={addButton}
+          onPress={() =>
+            this.props.navigation.navigate("AddBook", {
+              update: this.updateBooks
+            })
+          }
+          underlayColor={"#35daaa"}
+        />
+      </React.Fragment>
+    );
+  }
 
-	private searchByName = text => {
-		const newBooks = this.props.books.books.filter(book =>
-			book.title.toLowerCase().includes(text.toLowerCase())
-		);
-		this.setState({ books: newBooks, name: text });
-	};
-	private searchByAuthor = text => {
-		const newBooks = this.props.books.books.filter(book =>
-			book.author.toLowerCase().includes(text.toLowerCase())
-		);
-		this.setState({ books: newBooks, author: text });
-	};
-	private searchByGenre = text => {
-		const newBooks = this.props.books.books.filter(book =>
-			book.genre.toLowerCase().includes(text.toLowerCase())
-		);
-		this.setState({ books: newBooks, genre: text });
-	};
-	private updateBooks = async () => {
-		await this.props.fetchBooks();
-		const books = this.props.books.books.filter(
-			item => item.owner._id !== this.props.user.user._id
-		);
-		this.setState({
-			books
-		});
-	};
+  private searchByName = text => {
+    const newBooks = this.props.books.books.filter(book =>
+      book.title.toLowerCase().includes(text.toLowerCase())
+    );
+    this.setState({ books: newBooks, name: text });
+  };
+  private searchByAuthor = text => {
+    const newBooks = this.props.books.books.filter(book =>
+      book.author.toLowerCase().includes(text.toLowerCase())
+    );
+    this.setState({ books: newBooks, author: text });
+  };
+  private searchByGenre = text => {
+    const newBooks = this.props.books.books.filter(book =>
+      book.genre.toLowerCase().includes(text.toLowerCase())
+    );
+    this.setState({ books: newBooks, genre: text });
+  };
+  private updateBooks = async () => {
+    await this.props.fetchBooks();
+    const books = this.props.books.books.filter(
+      item => item.owner._id !== this.props.user.user._id
+    );
+    this.setState({
+      books
+    });
+  };
 }
 
 const styles = StyleSheet.create({
